@@ -26,7 +26,7 @@
 export default {
   props: ['issue', 'id'],
   created() {
-    console.log(this.issue);
+    // console.log(this.issue);
   },
   methods: {
     enter() {
