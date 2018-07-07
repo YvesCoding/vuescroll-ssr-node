@@ -6,10 +6,11 @@
 html,
 body,
 #app {
-  widows: 100%;
+  width: 100%;
   height: 100%;
 }
 #app {
+  width: 40%;
   margin: auto;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
