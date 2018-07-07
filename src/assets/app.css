@@ -27,7 +27,7 @@ body,
 
 @media only screen and (min-width: 1029px) {
   #app {
-    min-width: 480px;
+    width: 80%;
   }
 }
 
