@@ -81,7 +81,6 @@ export default Vue.extend({
       }
       setTimeout(() => {
         this.issues = this.issues.concat(this.receivedData);
-        // console.log(this.issues);
         done();
       }, 1000);
     },
