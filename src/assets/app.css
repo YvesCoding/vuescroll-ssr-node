@@ -21,13 +21,13 @@ body,
 
 @media screen and (min-width: 320px) and (max-width: 1024px) {
   #app {
-    min-width: 400px;
+    width: 80%;
   }
 }
 
 @media only screen and (min-width: 1029px) {
   #app {
-    width: 80%;
+    min-width: 480px;
   }
 }
 
