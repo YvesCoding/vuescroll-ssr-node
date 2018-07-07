@@ -5,7 +5,7 @@
     @load-before-deactivate="loadBeforeDeactivate"
     @refresh-start="refreshStart"
     >
-    <ul class="issue-container" slot="scroll-panel">
+    <ul class="issue-container" slot="scroll-panel" v-if="issues.length > 0">
         <issue-item
         v-for="issue in issues"
         :key="issue.id"
@@ -16,15 +16,21 @@
         >
         </issue-item>
     </ul>
+    <ul class="issue-container" slot="scroll-panel" v-else>
+      <no-data>
+      </no-data>
+    </ul>
 </vue-scroll>
 </template>
 <script lang="ts">
-import issueItem from './issueItem.vue';
+import issueItem from './IssueItem.vue';
+import NoData from './NoData.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
   components: {
-    issueItem
+    issueItem,
+    NoData
   },
   created() {
     this.getData().then(res => {
@@ -45,6 +51,9 @@ export default Vue.extend({
             tips: {
               beforeDeactive: 'Load Successfully!'
             }
+          },
+          scroller: {
+            preventDefault: false
           }
         }
       },

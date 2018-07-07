@@ -15,7 +15,7 @@
         </div>
         <div class="issue-content-row">
             <span class="issue-remark">
-                #{{issue.number}} by {{issue.user.login}} was {{issue.state}} at {{issue.state == 'closed' ? issue.closed_at : issue.created_at}}
+                #{{issue.number}} by <a :href="issue.user.html_url" target="_blank">{{issue.user.login}}</a> was {{issue.state}} at {{issue.state == 'closed' ? issue.closed_at : issue.created_at}}
             </span>
         </div>
         </div>
@@ -50,10 +50,6 @@ export default {
 .issue-item.active {
   background-color: #f6f8fa;
 }
-.avatar img {
-  width: 50px;
-  min-height: 50px;
-}
 
 .issue-content-row {
   min-height: 25px;
@@ -72,13 +68,16 @@ export default {
   text-decoration: none;
 }
 
-.issue-title:hover {
+.issue-title:hover,
+.issue-remark a:hover {
   color: #0366d6;
 }
 
-.issue-remark {
+.issue-remark,
+.issue-remark a {
   font-size: 12px;
   color: #586069;
+  text-decoration: none;
 }
 .issue-content {
   float: left;
