@@ -10,7 +10,6 @@ body,
   height: 100%;
 }
 #app {
-  width: 40%;
   margin: auto;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,6 +17,19 @@ body,
   text-align: center;
   color: #2c3e50;
 }
+
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+  #app {
+    min-width: 400px;
+  }
+}
+
+@media only screen and (min-width: 1029px) {
+  #app {
+    min-width: 480px;
+  }
+}
+
 .el-container {
   width: 80%;
   margin: auto;
@@ -27,4 +39,8 @@ ul {
 }
 li {
   list-style: none;
+}
+
+img {
+  max-width: 100%;
 }
