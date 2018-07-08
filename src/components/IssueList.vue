@@ -128,7 +128,9 @@ export default Vue.extend({
       this.issueState.owner = this.issueInfo.owner;
       this.issueState.repo = this.issueInfo.repo;
 
+      this.issues = [];
       this.tip = 'Loading......';
+
       this.getData()
         .then(res => {
           this.issues = res.data;

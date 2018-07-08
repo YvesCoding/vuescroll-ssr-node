@@ -24,7 +24,7 @@
       </div>
     </header>
     <main id="issue-list-main">
-      <issue-list :issueInfo="issueInfo" :key="key" ref="issue-list"/>
+      <issue-list :issueInfo="issueInfo" ref="issue-list"/>
     </main>
 </article>
 </template>
@@ -39,8 +39,7 @@ export default Vue.extend({
       issueInfo: {
         owner: 'YvesCoding',
         repo: 'vuescroll'
-      },
-      key: 1
+      }
     };
   },
   components: {
@@ -48,7 +47,8 @@ export default Vue.extend({
   },
   methods: {
     serachIssues() {
-      this.key++;
+      const issueList: any = this.$refs['issue-list'];
+      issueList.init();
     }
   }
 });
