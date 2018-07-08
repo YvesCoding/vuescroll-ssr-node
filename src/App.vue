@@ -2,8 +2,9 @@
   <article id="app">
     <header id="issule-list-header">
       <h2>
+        Vuescroll Issue List Demo - 
         <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
-          Vuescroll Issue List Demo
+          GitHub
         </a>
       </h2>
       <div class="search-container">
@@ -99,6 +100,10 @@ export default Vue.extend({
 
 .search-row > button {
   width: 50%;
+}
+
+.search-row:first-child {
+  margin-top: 20px;
 }
 
 .search-row:not(:first-child) {
