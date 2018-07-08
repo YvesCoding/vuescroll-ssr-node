@@ -2,14 +2,28 @@
   <article id="app">
     <header id="issule-list-header">
       <h2>
-        <a href="https://github.com/YvesCoding/vuescroll">
+        <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
           Vuescroll Issue List Demo
         </a>
       </h2>
-      
+      <div class="search-container">
+        <div class="search-row">
+          <div class="search-label">owner:</div>
+          <div class="search-input"><input type="text" v-model="issueInfo.owner"/></div>
+        </div>
+        <div class="search-row">
+          <div class="search-label">repo:</div>
+          <div class="search-input"><input type="text" v-model="issueInfo.repo"/></div>
+        </div>
+        <div class="search-row">
+          <button @click="serachIssues">
+            Go Search !
+          </button>
+        </div>
+      </div>
     </header>
     <main id="issue-list-main">
-      <issue-list />
+      <issue-list :issueInfo="issueInfo" :key="key" ref="issue-list"/>
     </main>
 </article>
 </template>
@@ -19,8 +33,22 @@ import vuescroll, { Config } from 'vuescroll';
 import IssueList from './components/IssueList.vue';
 
 export default Vue.extend({
+  data() {
+    return {
+      issueInfo: {
+        owner: 'YvesCoding',
+        repo: 'vuescroll'
+      },
+      key: 1
+    };
+  },
   components: {
     IssueList
+  },
+  methods: {
+    serachIssues() {
+      this.key++;
+    }
   }
 });
 </script>
@@ -45,5 +73,55 @@ export default Vue.extend({
 
 #issule-list-header a:hover {
   text-decoration: underline;
+}
+
+.search-row {
+  height: 30px;
+  line-height: 30px;
+}
+
+.search-row input {
+  height: 30px;
+  font-size: 16px;
+}
+
+.search-row button {
+  height: 20px;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.search-row::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.search-row > button {
+  width: 50%;
+}
+
+.search-row:not(:first-child) {
+  margin-top: 10px;
+}
+
+.search-label,
+.search-input {
+  float: left;
+}
+
+.search-label {
+  text-align: right;
+  width: 30%;
+}
+
+.search-input {
+  width: 50%;
+  margin-left: 10px;
+}
+
+.search-input input {
+  display: block;
+  width: 100%;
 }
 </style>

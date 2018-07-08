@@ -17,7 +17,7 @@
         </issue-item>
     </ul>
     <ul class="issue-container" slot="scroll-panel" v-else>
-      <no-data>
+      <no-data :tip="tip">
       </no-data>
     </ul>
 </vue-scroll>
@@ -28,14 +28,13 @@ import NoData from './NoData.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
+  props: ['issueInfo'],
   components: {
     issueItem,
     NoData
   },
   created() {
-    this.getData().then(res => {
-      this.issues = res.data;
-    });
+    this.init();
   },
   data() {
     return {
@@ -57,14 +56,28 @@ export default Vue.extend({
           }
         }
       },
+      tip: '',
       issues: [],
       receivedData: [],
       params: {
         state: 'all',
         page: 1,
         per_page: 10
+      },
+      issueState: {
+        owner: '',
+        repo: ''
       }
     };
+  },
+  computed: {
+    issueAddress() {
+      const address: any = `https://api.github.com/repos/${
+        this.issueState.owner
+      }/${this.issueState.repo}/issues`;
+
+      return address;
+    }
   },
   methods: {
     /** Set which issue is currently active */
@@ -82,7 +95,7 @@ export default Vue.extend({
     /** Handle for load-before-deactivate stage, always show user result in this stage, */
     loadBeforeDeactivate(_: any, __: any, done: any) {
       if (!this.receivedData.length) {
-        this.ops.vuescroll.pushLoad.tips.beforeDeactive = 'No More Data';
+        this.ops.vuescroll.pushLoad.tips.beforeDeactive = 'No More Data :(';
       } else {
         this.ops.vuescroll.pushLoad.tips.beforeDeactive = `Load ${
           this.receivedData.length
@@ -96,18 +109,44 @@ export default Vue.extend({
     /** Handle for refresh-start stage */
     refreshStart(_: any, __: any, done: any) {
       this.params.page = 1;
-      this.getData().then(res => {
-        this.issues = res.data;
-        done();
-      });
+      this.getData()
+        .then(res => {
+          this.issues = res.data;
+          done();
+        })
+        .catch(e => {
+          this.issues = [];
+          this.tip = `Error: ${e.message}`;
+        });
     },
     getData() {
-      return this.$axios.get(
-        'https://api.github.com/repos/yvescoding/vuescroll/issues',
-        {
-          params: this.params
+      return this.$axios.get(this.issueAddress, {
+        params: this.params
+      });
+    },
+    init() {
+      this.issueState.owner = this.issueInfo.owner;
+      this.issueState.repo = this.issueInfo.repo;
+
+      this.tip = 'Loading......';
+      this.getData()
+        .then(res => {
+          this.issues = res.data;
+        })
+        .catch(e => {
+          this.issues = [];
+          this.tip = `Error: ${e.message}`;
+        });
+    }
+  },
+  watch: {
+    issues: {
+      handler() {
+        if (!this.issues.length) {
+          this.tip = 'No Data To Show :(';
         }
-      );
+      },
+      sync: true
     }
   }
 });

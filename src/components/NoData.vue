@@ -1,13 +1,15 @@
 <template>
     <li class="issue-item">
         <span class="no-data-tip">
-            No Data To Show :(
+            {{tip}}
         </span>
     </li>
 </template>
 
 <script>
-export default {};
+export default {
+    props: ['tip']
+};
 </script>
 
 <style>
