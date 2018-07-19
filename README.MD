@@ -4,20 +4,35 @@
 
 ## Introduction
 
-Vuescroll demo, use typescript , pull to refresh and push to load.
+> A demo of vuescroll, show the usage of `pull-to-refresh` and `push-to-load`.
+
+## Features
+
+- SSR
+- Push to load
+- Pull to refresh
 
 ## Usage
 
-### Install
+### Installation
 
 ```bash
    npm install
    # yarn install
 ```
 
-### Run
+### Run Server
 
 ```bash
-  npm run serve
+  npm run dev
+  # yarn serve
+```
+
+Plz visit `localhost: 8080`
+
+### Genrate(SSR)
+
+```bash
+  npm run generate
   # yarn serve
 ```
