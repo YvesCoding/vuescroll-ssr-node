@@ -1,28 +1,16 @@
 <template>
-<vue-scroll 
-    :ops="ops"  
-    @load-start="loadStart"
-    @load-before-deactivate="loadBeforeDeactivate"
-    @refresh-start="refreshStart"
-    >
+  <vue-scroll :ops="ops" @load-start="loadStart" @load-before-deactivate="loadBeforeDeactivate" @refresh-start="refreshStart">
     <ul class="issue-container" slot="scroll-panel" v-if="issues.length > 0">
-        <issue-item
-        v-for="issue in issues"
-        :key="issue.id"
-        :id="issue.id"
-        :issue="issue"
-        :class="{'active': activeIndex == issue.id}"
-        @enter="setActive"
-        >
-        </issue-item>
+      <issue-item v-for="issue in issues" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
+      </issue-item>
     </ul>
     <ul class="issue-container" slot="scroll-panel" v-else>
       <no-data :tip="tip">
       </no-data>
     </ul>
-</vue-scroll>
+  </vue-scroll>
 </template>
-<script lang="ts">
+<script>
 import issueItem from './IssueItem.vue';
 import NoData from './NoData.vue';
 import Vue from 'vue';
@@ -32,9 +20,6 @@ export default Vue.extend({
   components: {
     issueItem,
     NoData
-  },
-  created() {
-    this.init();
   },
   data() {
     return {
@@ -72,20 +57,20 @@ export default Vue.extend({
   },
   computed: {
     issueAddress() {
-      const address: any = `https://api.github.com/repos/${
-        this.issueState.owner
-      }/${this.issueState.repo}/issues`;
+      const address = `https://api.github.com/repos/${this.issueState.owner}/${
+        this.issueState.repo
+      }/issues`;
 
       return address;
     }
   },
   methods: {
     /** Set which issue is currently active */
-    setActive(index: number) {
+    setActive(index) {
       this.activeIndex = index;
     },
     /** Handle for load-start stage */
-    loadStart(_: any, __: any, done: any) {
+    loadStart(_, __, done) {
       this.params.page++;
       this.getData().then(res => {
         this.receivedData = res.data;
@@ -93,7 +78,7 @@ export default Vue.extend({
       });
     },
     /** Handle for load-before-deactivate stage, always show user result in this stage, */
-    loadBeforeDeactivate(_: any, __: any, done: any) {
+    loadBeforeDeactivate(_, __, done) {
       if (!this.receivedData.length) {
         this.ops.vuescroll.pushLoad.tips.beforeDeactive = 'No More Data :(';
       } else {
@@ -107,7 +92,7 @@ export default Vue.extend({
       }, 1000);
     },
     /** Handle for refresh-start stage */
-    refreshStart(_: any, __: any, done: any) {
+    refreshStart(_, __, done) {
       this.params.page = 1;
       this.getData()
         .then(res => {
@@ -124,7 +109,7 @@ export default Vue.extend({
         params: this.params
       });
     },
-    init() {
+    init(cb = () => {}) {
       this.issueState.owner = this.issueInfo.owner;
       this.issueState.repo = this.issueInfo.repo;
 
@@ -134,10 +119,12 @@ export default Vue.extend({
       this.getData()
         .then(res => {
           this.issues = res.data;
+          cb('success');
         })
         .catch(e => {
           this.issues = [];
           this.tip = `Error: ${e.message}`;
+          cb('error');
         });
     }
   },

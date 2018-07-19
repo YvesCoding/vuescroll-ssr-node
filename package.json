@@ -1,23 +1,36 @@
 {
   "name": "vuescroll-issue-list-demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "node server"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.16",
-    "vue-router": "^3.0.1",
-    "vuescroll": "^4.6.24"
+    "vue-server-renderer": "^2.5.16",
+    "vuescroll": "^4.7.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
-    "@vue/cli-plugin-typescript": "^3.0.0-beta.15",
-    "@vue/cli-service": "^3.0.0-beta.15",
-    "vue-template-compiler": "^2.5.16"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.6.1",
+    "compression": "^1.7.1",
+    "cross-env": "^5.1.1",
+    "css-loader": "^1.0.0",
+    "express": "^4.6.13",
+    "file-loader": "^1.1.5",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "style-loader": "^0.21.0",
+    "url-loader": "^0.6.2",
+    "vue-loader": "^15.0.0-beta.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0",
+    "webpack-merge": "^4.1.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "browserslist": [
     "> 1%",

@@ -2,7 +2,7 @@
   <article id="app">
     <header id="issule-list-header">
       <h2>
-        Vuescroll Issue List Demo - 
+        Vuescroll Issue List Demo -
         <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
           GitHub
         </a>
@@ -10,11 +10,11 @@
       <div class="search-container">
         <div class="search-row">
           <div class="search-label">owner:</div>
-          <div class="search-input"><input type="text" v-model="issueInfo.owner"/></div>
+          <div class="search-input"><input type="text" v-model="issueInfo.owner" /></div>
         </div>
         <div class="search-row">
           <div class="search-label">repo:</div>
-          <div class="search-input"><input type="text" v-model="issueInfo.repo"/></div>
+          <div class="search-input"><input type="text" v-model="issueInfo.repo" /></div>
         </div>
         <div class="search-row">
           <button @click="serachIssues">
@@ -24,16 +24,27 @@
       </div>
     </header>
     <main id="issue-list-main">
-      <issue-list :issueInfo="issueInfo" ref="issue-list"/>
+      <issue-list :issueInfo="issueInfo" ref="issue-list" />
     </main>
-</article>
+  </article>
 </template>
-<script lang="ts">
+<script>
 import Vue from 'vue';
 import vuescroll, { Config } from 'vuescroll';
 import IssueList from './components/IssueList.vue';
 
 export default Vue.extend({
+  asyncData() {
+    return new Promise((resolve, reject) => {
+      this.issueList.init(message => {
+        if (message == 'success') {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
+  },
   data() {
     return {
       issueInfo: {
@@ -45,10 +56,14 @@ export default Vue.extend({
   components: {
     IssueList
   },
+  computed: {
+    issueList() {
+      return this.$refs['issue-list'];
+    }
+  },
   methods: {
     serachIssues() {
-      const issueList: any = this.$refs['issue-list'];
-      issueList.init();
+      this.issueList.init();
     }
   }
 });
