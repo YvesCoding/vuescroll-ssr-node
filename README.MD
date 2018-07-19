@@ -34,5 +34,5 @@ Plz visit `localhost: 8080`
 
 ```bash
   npm run generate
-  # yarn serve
+  # Files will be generated in disk folder of root of project!
 ```
