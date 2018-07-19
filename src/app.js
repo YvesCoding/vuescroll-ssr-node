@@ -2,11 +2,11 @@ import Vue from 'vue';
 import App from './App.vue';
 import vuescroll from 'vuescroll';
 import axios from 'axios';
+import { createStore } from './store';
 
 Vue.use(vuescroll);
 Vue.config.productionTip = false;
 
-Vue.prototype.$axios = axios;
 Vue.prototype.$vuescrollConfig = {
   bar: {
     background: 'rgb(202, 210, 206)'
@@ -14,9 +14,13 @@ Vue.prototype.$vuescrollConfig = {
 };
 
 export default function createApp() {
+  const store = createStore();
+
   const app = new Vue({
-    render: h => h(App, { ref: 'app' })
+    store,
+    components: { App },
+    render: h => h('App')
   });
 
-  return app;
+  return { app, store };
 }

@@ -1,7 +1,7 @@
 <template>
   <vue-scroll :ops="ops" @load-start="loadStart" @load-before-deactivate="loadBeforeDeactivate" @refresh-start="refreshStart">
-    <ul class="issue-container" slot="scroll-panel" v-if="issues.length > 0">
-      <issue-item v-for="issue in issues" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
+    <ul class="issue-container" slot="scroll-panel" v-if="issuesList.length > 0">
+      <issue-item v-for="issue in issuesList" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
       </issue-item>
     </ul>
     <ul class="issue-container" slot="scroll-panel" v-else>
@@ -16,6 +16,9 @@ import NoData from './NoData.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
+  asyncData(store) {
+    return store.dispatch('asyncData');
+  },
   props: ['issueInfo'],
   components: {
     issueItem,
@@ -42,26 +45,15 @@ export default Vue.extend({
         }
       },
       tip: '',
-      issues: [],
-      receivedData: [],
-      params: {
-        state: 'all',
-        page: 1,
-        per_page: 10
-      },
-      issueState: {
-        owner: '',
-        repo: ''
-      }
+      internalDispatch: false
     };
   },
   computed: {
-    issueAddress() {
-      const address = `https://api.github.com/repos/${this.issueState.owner}/${
-        this.issueState.repo
-      }/issues`;
-
-      return address;
+    issuesList() {
+      return this.$store.state.issuesList;
+    },
+    ayncData() {
+      return this.$options.asyncData;
     }
   },
   methods: {
@@ -71,23 +63,24 @@ export default Vue.extend({
     },
     /** Handle for load-start stage */
     loadStart(_, __, done) {
-      this.params.page++;
-      this.getData().then(res => {
-        this.receivedData = res.data;
+      this.$store.commit('addPage');
+      this.internalDispatch = true;
+
+      this.ayncData(this.$store).then(() => {
+        const len = this.issuesList.length;
+        if (!len) {
+          this.ops.vuescroll.pushLoad.tips.beforeDeactive = 'No More Data!';
+        } else {
+          this.ops.vuescroll.pushLoad.tips.beforeDeactive = `Successfully load ${len} datas!`;
+        }
         done();
       });
     },
     /** Handle for load-before-deactivate stage, always show user result in this stage, */
     loadBeforeDeactivate(_, __, done) {
-      if (!this.receivedData.length) {
-        this.ops.vuescroll.pushLoad.tips.beforeDeactive = 'No More Data :(';
-      } else {
-        this.ops.vuescroll.pushLoad.tips.beforeDeactive = `Load ${
-          this.receivedData.length
-        } datas Successfully!`;
-      }
+      this.internalDispatch = false;
       setTimeout(() => {
-        this.issues = this.issues.concat(this.receivedData);
+        this.issues = this.issues.concat(this.issuesList);
         done();
       }, 1000);
     },
@@ -95,8 +88,8 @@ export default Vue.extend({
     refreshStart(_, __, done) {
       this.params.page = 1;
       this.getData()
-        .then(res => {
-          this.issues = res.data;
+        .then(() => {
+          this.issues = this.issuesList;
           done();
         })
         .catch(e => {
@@ -104,21 +97,13 @@ export default Vue.extend({
           this.tip = `Error: ${e.message}`;
         });
     },
-    getData() {
-      return this.$axios.get(this.issueAddress, {
-        params: this.params
-      });
-    },
     init(cb = () => {}) {
-      this.issueState.owner = this.issueInfo.owner;
-      this.issueState.repo = this.issueInfo.repo;
-
       this.issues = [];
       this.tip = 'Loading......';
 
       this.getData()
-        .then(res => {
-          this.issues = res.data;
+        .then(() => {
+          this.issues = this.issuesList;
           cb('success');
         })
         .catch(e => {
@@ -136,6 +121,10 @@ export default Vue.extend({
         }
       },
       sync: true
+    },
+    '$store.issuesList'() {
+      if (this.internalDispatch) return;
+      this.issues = this.issuesList;
     }
   }
 });

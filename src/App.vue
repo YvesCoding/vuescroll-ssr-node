@@ -34,17 +34,6 @@ import vuescroll, { Config } from 'vuescroll';
 import IssueList from './components/IssueList.vue';
 
 export default Vue.extend({
-  asyncData() {
-    return new Promise((resolve, reject) => {
-      this.issueList.init(message => {
-        if (message == 'success') {
-          resolve();
-        } else {
-          reject();
-        }
-      });
-    });
-  },
   data() {
     return {
       issueInfo: {
