@@ -4,15 +4,15 @@ import axios from 'axios';
 export default {
   asyncData({ commit, state, getters }) {
     const { params } = state;
-    const { address } = getters;
+    const { issueAddress } = getters;
 
     return new Promise((resolve, reject) => {
       axios
-        .get(address, {
+        .get(issueAddress, {
           params
         })
         .then(res => {
-          commit('setIssuesList', res.data);
+          commit('SET_ISSUELIST', res.data);
           resolve();
         })
         .catch(e => {

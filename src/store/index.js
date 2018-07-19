@@ -10,7 +10,7 @@ export function createStore() {
   return new Vuex.Store({
     state: {
       issuesList: [],
-      issueState: {
+      issueInfo: {
         repo: 'vuescroll',
         owner: 'yvescoding'
       },

@@ -1,7 +1,7 @@
 export default {
-  issueAddress(state) => {
-    const address = `https://api.github.com/repos/${state.issueState.owner}/${
-      state.issueState.repo
+  issueAddress: state => {
+    const address = `https://api.github.com/repos/${state.issueInfo.owner}/${
+      state.issueInfo.repo
     }/issues`;
 
     return address;

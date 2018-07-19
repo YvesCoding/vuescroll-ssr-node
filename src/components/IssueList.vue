@@ -1,7 +1,7 @@
 <template>
   <vue-scroll :ops="ops" @load-start="loadStart" @load-before-deactivate="loadBeforeDeactivate" @refresh-start="refreshStart">
-    <ul class="issue-container" slot="scroll-panel" v-if="issuesList.length > 0">
-      <issue-item v-for="issue in issuesList" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
+    <ul class="issue-container" slot="scroll-panel" v-if="issues.length > 0">
+      <issue-item v-for="issue in issues" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
       </issue-item>
     </ul>
     <ul class="issue-container" slot="scroll-panel" v-else>
@@ -45,7 +45,8 @@ export default Vue.extend({
         }
       },
       tip: '',
-      internalDispatch: false
+      internalDispatch: false,
+      issues: []
     };
   },
   computed: {
@@ -63,7 +64,7 @@ export default Vue.extend({
     },
     /** Handle for load-start stage */
     loadStart(_, __, done) {
-      this.$store.commit('addPage');
+      this.$store.commit('ADD_PAGE');
       this.internalDispatch = true;
 
       this.ayncData(this.$store).then(() => {
@@ -87,7 +88,7 @@ export default Vue.extend({
     /** Handle for refresh-start stage */
     refreshStart(_, __, done) {
       this.params.page = 1;
-      this.getData()
+      this.ayncData()
         .then(() => {
           this.issues = this.issuesList;
           done();
@@ -101,7 +102,7 @@ export default Vue.extend({
       this.issues = [];
       this.tip = 'Loading......';
 
-      this.getData()
+      this.ayncData(this.$store)
         .then(() => {
           this.issues = this.issuesList;
           cb('success');
@@ -121,11 +122,10 @@ export default Vue.extend({
         }
       },
       sync: true
-    },
-    '$store.issuesList'() {
-      if (this.internalDispatch) return;
-      this.issues = this.issuesList;
     }
+  },
+  created() {
+    this.issues = this.issuesList;
   }
 });
 </script>

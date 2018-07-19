@@ -1,8 +1,14 @@
 export default {
-  setIssuesList(state) {
-    state.issuesList = state._issuesList;
+  SET_ISSUELIST(state, payload) {
+    state.issuesList = payload;
   },
-  addPage() {
+  ADD_PAGE(state) {
     state.params.page++;
+  },
+  RESET_PAGE(state) {
+    state.params.page = 1;
+  },
+  SET_ISSUE_INFO(state, payload) {
+    state.issueInfo = payload;
   }
 };

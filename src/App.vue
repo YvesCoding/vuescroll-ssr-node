@@ -52,6 +52,9 @@ export default Vue.extend({
   },
   methods: {
     serachIssues() {
+      this.$store.commit('SET_ISSUE_INFO', this.issueInfo);
+      this.$store.commit('RESET_PAGE');
+
       this.issueList.init();
     }
   }
@@ -60,7 +63,7 @@ export default Vue.extend({
 
 <style>
 @import url('./assets/app.css');
-
+@import url('~vuescroll/dist/vuescroll.css');
 #issue-list-main {
   height: 500px;
   border: 1px solid #e1e4e8;
