@@ -1,5 +1,6 @@
 <p align="center">
   <img src="https://github.com/wangyi7099/pictureCdn/blob/master/allPic/vuescroll/show1.gif?raw=true" width="400"  alt="Demo">
+  <a href="http://vuescroll-demo.yvescoding.org:8080/">Online Demo</a>
 </p>
 
 ## Introduction
@@ -29,10 +30,3 @@
 ```
 
 Plz visit `localhost: 8080`
-
-### Genrate(SSR)
-
-```bash
-  npm run generate
-  # Files will be generated in disk folder of root of project!
-```
