@@ -1,8 +1,9 @@
 <p align="center">
   <img src="https://github.com/wangyi7099/pictureCdn/blob/master/allPic/vuescroll/show1.gif?raw=true" width="400"  alt="Demo">
+ </p>
+<p align="center">
   <a href="http://vuescroll-demo.yvescoding.org:8080/">Online Demo</a>
 </p>
-
 ## Introduction
 
 > A demo of vuescroll, show the usage of `pull-to-refresh` and `push-to-load`.
