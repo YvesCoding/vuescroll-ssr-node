@@ -30,3 +30,7 @@
 ```
 
 Plz visit `localhost: 8080`
+
+## Caveat
+
+**This is the SSR version, if you want to get SPA version, plz checkout the SPA branch!**
