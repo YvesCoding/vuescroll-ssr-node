@@ -87,8 +87,9 @@ export default Vue.extend({
     },
     /** Handle for refresh-start stage */
     refreshStart(_, __, done) {
-      this.params.page = 1;
-      this.ayncData()
+      this.$store.commit('RESET_PAGE');
+
+      this.ayncData(this.$store)
         .then(() => {
           this.issues = this.issuesList;
           done();
