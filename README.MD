@@ -4,13 +4,14 @@
 <p align="center">
   <a href="http://vuescroll-demo.yvescoding.org:8080/">Online Demo</a>
 </p>
+
 ## Introduction
 
 > A demo of vuescroll, show the usage of `pull-to-refresh` and `push-to-load`.
 
 ## Features
 
-- SSR
+- SSR (Server Side Render)
 - Push to load
 - Pull to refresh
 
@@ -34,4 +35,4 @@ Plz visit `localhost: 8080`
 
 ## Caveat
 
-**This is the SSR version, if you want to get SPA version, plz checkout the SPA branch!**
+**This is the SSR version, if you want to get SPA version, plz checkout the SPA branch of this repo!**
