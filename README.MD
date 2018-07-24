@@ -2,7 +2,7 @@
   <img src="https://github.com/wangyi7099/pictureCdn/blob/master/allPic/vuescroll/show1.gif?raw=true" width="400"  alt="Demo">
  </p>
 <p align="center">
-  <a href="https://vuescroll-issue-list-demo-qlrlyskaji.now.sh/">Online Demo</a>
+  <a href="https://vuescroll-issue-list-demo-zdizhghthq.now.sh">Online Demo</a>
 </p>
 
 ## Introduction
