@@ -1,31 +1,41 @@
 <template>
   <article id="app">
-    <header id="issule-list-header">
-      <h2>
-        Vuescroll Issue List Demo -
-        <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
-          GitHub
-        </a>
-      </h2>
-      <div class="search-container">
-        <div class="search-row">
-          <div class="search-label">owner:</div>
-          <div class="search-input"><input type="text" v-model="issueInfo.owner" /></div>
+    <vue-scroll>
+      <header id="issule-list-header">
+        <h2>
+          Vuescroll Issue List Demo -
+          <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
+            GitHub
+          </a>
+        </h2>
+        <p>
+          <small>
+            This demo is made by
+            <strong>Vuescroll</strong> and
+            <strong>Vue SSR</strong> technology
+          </small>
+        </p>
+
+        <div class="search-container">
+          <div class="search-row">
+            <div class="search-label">owner:</div>
+            <div class="search-input"><input type="text" v-model="issueInfo.owner" /></div>
+          </div>
+          <div class="search-row">
+            <div class="search-label">repo:</div>
+            <div class="search-input"><input type="text" v-model="issueInfo.repo" /></div>
+          </div>
+          <div class="search-row">
+            <button @click="serachIssues">
+              Search
+            </button>
+          </div>
         </div>
-        <div class="search-row">
-          <div class="search-label">repo:</div>
-          <div class="search-input"><input type="text" v-model="issueInfo.repo" /></div>
-        </div>
-        <div class="search-row">
-          <button @click="serachIssues">
-            Go Search !
-          </button>
-        </div>
-      </div>
-    </header>
-    <main id="issue-list-main">
-      <issue-list :issueInfo="issueInfo" ref="issue-list" />
-    </main>
+      </header>
+      <main id="issue-list-main">
+        <issue-list :issueInfo="issueInfo" ref="issue-list" />
+      </main>
+    </vue-scroll>
   </article>
 </template>
 <script>
@@ -70,7 +80,7 @@ export default Vue.extend({
 }
 
 #issule-list-header {
-  padding: 15px 0;
+  padding: 5px 0;
 }
 
 #issule-list-header a {
