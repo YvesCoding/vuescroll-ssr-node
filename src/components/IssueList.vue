@@ -1,7 +1,7 @@
 <template>
   <vue-scroll :ops="ops" @load-start="loadStart" @load-before-deactivate="loadBeforeDeactivate" @refresh-start="refreshStart">
     <ul class="issue-container" slot="scroll-panel" v-if="issues.length > 0">
-      <issue-item v-for="issue in issues" :key="issue.id" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
+      <issue-item v-for="(issue, index) in issues" :key="index" :id="issue.id" :issue="issue" :class="{'active': activeIndex == issue.id}" @enter="setActive">
       </issue-item>
     </ul>
     <ul class="issue-container" slot="scroll-panel" v-else>

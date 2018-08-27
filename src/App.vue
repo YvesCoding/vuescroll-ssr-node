@@ -3,16 +3,17 @@
     <vue-scroll>
       <header id="issule-list-header">
         <h2>
-          Vuescroll Issue List Demo -
-          <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo">
-            GitHub
+          Vuescroll Issue List Demo Use Vue-SSR technology -
+          <a href="https://github.com/YvesCoding/vuescroll-issue-list-demo" style="color:red">
+            Demo GitHub
           </a>
         </h2>
         <p>
           <small>
-            This demo is made by
-            <strong>Vuescroll</strong> and
-            <strong>Vue SSR</strong> technology
+            Vuescroll version
+            <strong style="color:blue">
+              <a href="https://www.npmjs.com/package/vuescroll">4.7.6</a>
+            </strong>
           </small>
         </p>
 
