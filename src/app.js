@@ -4,14 +4,14 @@ import vuescroll from 'vuescroll';
 import axios from 'axios';
 import { createStore } from './store';
 
-Vue.use(vuescroll);
-Vue.config.productionTip = false;
-
-Vue.prototype.$vuescrollConfig = {
-  bar: {
-    background: 'rgb(202, 210, 206)'
+Vue.use(vuescroll, {
+  ops: {
+    bar: {
+      background: 'rgb(202, 210, 206)'
+    }
   }
-};
+});
+Vue.config.productionTip = false;
 
 export default function createApp() {
   const store = createStore();
