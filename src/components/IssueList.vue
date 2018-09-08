@@ -16,9 +16,6 @@ import NoData from './NoData.vue';
 import Vue from 'vue';
 
 export default Vue.extend({
-  asyncData(store) {
-    return store.dispatch('asyncData');
-  },
   props: ['issueInfo'],
   components: {
     issueItem,

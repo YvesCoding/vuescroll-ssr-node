@@ -5,18 +5,31 @@ const isDev = process.env.NODE_ENV !== 'production';
 export default context => {
   return new Promise((resolve, reject) => {
     const startTime = isDev && Date.now();
-    const { app, store } = createApp();
+    const { app, store, router } = createApp();
 
-    const asyncData =
-      app.$options.components['App'].options.components['IssueList'].options
-        .asyncData;
+    router.push(context.url);
 
-    asyncData(store)
-      .then(() => {
-        isDev && console.log(`data pre-fetch: ${Date.now() - startTime}ms`);
-        context.state = store.state;
-        resolve(app);
-      })
-      .catch(reject);
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents();
+      // 匹配不到的路由，执行 reject 函数，并返回 404
+      if (!matchedComponents.length) {
+        return reject({ code: 404 });
+      }
+
+      // 对所有匹配的路由组件调用 `asyncData()`
+      Promise.all(
+        matchedComponents.map(Component => {
+          if (Component.asyncData) {
+            return Component.asyncData(store, router.currentRoute);
+          }
+        })
+      )
+        .then(() => {
+          context.state = store.state;
+          isDev && console.log(`data pre-fetch: ${Date.now() - startTime}ms`);
+          resolve(app);
+        })
+        .catch(reject);
+    }, reject);
   });
 };

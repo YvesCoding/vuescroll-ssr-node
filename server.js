@@ -5,7 +5,7 @@ const compression = require('compression');
 const resolve = file => path.resolve(__dirname, file);
 const { createBundleRenderer } = require('vue-server-renderer');
 
-const isProd = process.env.NODE_ENV == 'production';
+const isProd = false; //process.env.NODE_ENV == 'production';
 const app = express();
 
 function createRenderer(bundle, options) {
@@ -71,7 +71,7 @@ function render(req, res) {
   };
 
   const context = {
-    title: 'Vue-SSR-Full-Feature-Example', // default title
+    title: 'Vue-SSR-Demo', // default title
     url: req.url
   };
   renderer.renderToString(context, (err, html) => {
